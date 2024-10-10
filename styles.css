@@ -1,0 +1,27 @@
+// Sample dataset with Aadhaar numbers
+const dataset = {
+    "5982-1526-6691": true,
+    "9876-5432-1098": true,
+    "1111-2222-3333": true
+};
+
+document.getElementById('generate-link-button').addEventListener('click', function() {
+    const aadhaarInput = document.getElementById('aadhaar-input').value;
+    const messageElement = document.getElementById('message');
+    const linkElement = document.getElementById('generated-link');
+
+    // Check if the Aadhaar number exists in the dataset
+    if (dataset[aadhaarInput]) {
+        // Generate the specific link if Aadhaar number is valid
+        const generatedLink = "https://technohealthcare240627165440588-app.openweaver.com/home";
+        linkElement.href = generatedLink;
+        linkElement.innerText = "Click here to access your link";
+        linkElement.classList.remove('hidden');
+        messageElement.innerText = "";
+    } else {
+        // Display error message if Aadhaar number is incorrect
+        linkElement.classList.add('hidden');
+        messageElement.innerText = "Incorrect Aadhaar Number";
+        messageElement.style.color = "red";
+    }
+});

@@ -1,0 +1,196 @@
+OCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECCAAN DNA - DECCAAN HEALTHCARE MANAGEMENT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100%;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .top-right-shape {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            border-bottom-left-radius: 100%;
+        }
+        .bottom-left-shape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #0ff0b3, #036ed9);
+            border-top-right-radius: 100%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0072ff;
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .logo svg {
+            width: 2.2rem;
+            height: 2.2rem;
+            margin-right: 0.5rem;
+        }
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #0072ff;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #00c6ff;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .generate-btn {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .login-btn, .signup-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .login-btn {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+        }
+        .signup-btn {
+            background: linear-gradient(45deg, #84fab0, #8fd3f4);
+        }
+        .icon {
+            margin-right: 0.5rem;
+        }
+        #linkResult {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #e6f7ff;
+            border: 2px solid #0072ff;
+            border-radius: 8px;
+            display: none;
+            font-weight: 600;
+        }
+        #linkResult a {
+            color: #0072ff;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        #linkResult a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-right-shape"></div>
+        <div class="bottom-left-shape"></div>
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd" />
+            </svg>
+            DECCAAN DNA
+        </div>
+        <h1>DECCAAN HEALTHCARE MANAGEMENT</h1>
+        <form id="linkGeneratorForm">
+            <label for="aadhaar">Enter Aadhaar Number</label>
+            <input type="text" id="aadhaar" name="aadhaar" placeholder="e.g., 1234-5678-9012" required>
+            <button type="submit" class="generate-btn">Generate Healthcare Link</button>
+        </form>
+        <div id="linkResult"></div>
+        <div class="action-buttons">
+            <button class="login-btn">
+                <span class="icon">👤</span> Login
+            </button>
+            <button class="signup-btn">
+                <span class="icon">➕</span> Sign Up
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const validAadhaarNumbers = new Set([
+            '5982-1526-6691',
+            '1234-5678-9012',
+            '9876-5432-1098',
+            '4567-8901-2345'
+        ]);
+
+        document.getElementById('linkGeneratorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const aadhaarNumber = document.getElementById('aadhaar').value;
+            const linkResultDiv = document.getElementById('linkResult');
+
+            if (validAadhaarNumbers.has(aadhaarNumber)) {
+                const link = "https://technohealthcare240627165440588-app.openweaver.com/home";
+                linkResultDiv.innerHTML = `<p>Healthcare link generated:</p><a href="${link}" target="_blank">${link}</a>`;
+                linkResultDiv.style.display = 'block';
+            } else {
+                linkResultDiv.innerHTML = '<p>Invalid Aadhaar number. Please try again.</p>';
+                linkResultDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
